@@ -36,6 +36,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxUserHometown = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.buttonUserDoPost = new System.Windows.Forms.Button();
+            this.textBoxUserPost = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -99,6 +101,8 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.groupBox1.Controls.Add(this.buttonUserDoPost);
+            this.groupBox1.Controls.Add(this.textBoxUserPost);
             this.groupBox1.Controls.Add(this.textBoxUserHometown);
             this.groupBox1.Controls.Add(this.pictureBoxUser);
             this.groupBox1.Controls.Add(this.textBoxUserEmail);
@@ -130,6 +134,29 @@
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "Note: This application have created settings file at \"C:\\FacebookApp\".";
             // 
+            // buttonUserDoPost
+            // 
+            this.buttonUserDoPost.BackColor = System.Drawing.Color.RoyalBlue;
+            this.buttonUserDoPost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUserDoPost.ForeColor = System.Drawing.Color.White;
+            this.buttonUserDoPost.Location = new System.Drawing.Point(184, 312);
+            this.buttonUserDoPost.Name = "buttonUserDoPost";
+            this.buttonUserDoPost.Size = new System.Drawing.Size(49, 48);
+            this.buttonUserDoPost.TabIndex = 8;
+            this.buttonUserDoPost.Text = "Post it!";
+            this.buttonUserDoPost.UseVisualStyleBackColor = false;
+            this.buttonUserDoPost.Click += new System.EventHandler(this.buttonUserDoPost_Click);
+            // 
+            // textBoxUserPost
+            // 
+            this.textBoxUserPost.Location = new System.Drawing.Point(15, 312);
+            this.textBoxUserPost.Multiline = true;
+            this.textBoxUserPost.Name = "textBoxUserPost";
+            this.textBoxUserPost.Size = new System.Drawing.Size(163, 46);
+            this.textBoxUserPost.TabIndex = 9;
+            this.textBoxUserPost.Text = "Have some thoughts?";
+            this.textBoxUserPost.Click += new System.EventHandler(this.textBoxUserPost_Click);
+            // 
             // AppUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,6 +186,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox textBoxUserHometown;
+        private System.Windows.Forms.Button buttonUserDoPost;
+        private System.Windows.Forms.TextBox textBoxUserPost;
     }
 }
 

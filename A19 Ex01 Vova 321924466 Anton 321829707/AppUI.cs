@@ -37,6 +37,8 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
                 "user_location",
                 "user_photos",
                 "user_posts",
+                "manage_pages",
+                "publish_pages",
                 "publish_to_groups");         
 
             if (!string.IsNullOrEmpty(result.AccessToken))
@@ -58,7 +60,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             }
             catch (Exception LogOutException)
             {
-                MessageBox.Show("You need first to login." + System.Environment.NewLine + LogOutException.Message.ToString());               
+                MessageBox.Show("You need first to login." + System.Environment.NewLine + LogOutException.Message);               
             }
         }
 
@@ -74,7 +76,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             }
             catch (Exception fetchUserInfoException)
             {
-                MessageBox.Show("We were unable to retrive one or more fields of your info :-(" + System.Environment.NewLine + fetchUserInfoException.Message.ToString());
+                MessageBox.Show("We were unable to retrive one or more fields of your info :-(" + System.Environment.NewLine + fetchUserInfoException.Message);
             }
         }
 
@@ -85,7 +87,41 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             textBoxUserName.Text = "User name";
             textBoxUserEmail.Text = "Email";
             textBoxUserHometown.Text = "Hometown";
+            textBoxUserPost.Text = "Have some thoughts?";
         }
+
+        private void textBoxUserPost_Click(object sender, EventArgs e)
+        {
+            textBoxUserPost.Text = "";
+        }
+
+        private void buttonUserDoPost_Click(object sender, EventArgs e)
+        {
+            if (m_LoggedInUser != null)
+            {
+                if (textBoxUserPost.Text != "")
+                {
+                    try
+                    {
+                        Status postedStatus = m_LoggedInUser.PostStatus(textBoxUserPost.Text);
+                        MessageBox.Show("Status Posted! " + System.Environment.NewLine + "ID: " + postedStatus.Id);
+                        textBoxUserPost.Text = "Have some thoughts?";
+                    }
+                    catch (Exception doPostException)
+                    {
+                        MessageBox.Show("Something went wrong durning post." + System.Environment.NewLine + doPostException.Message);                      
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You can't post an empty thought!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You need to login first!");
+            }
+        }      
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
