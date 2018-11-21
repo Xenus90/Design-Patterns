@@ -88,6 +88,8 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             textBoxUserEmail.Text = "Email";
             textBoxUserHometown.Text = "Hometown";
             textBoxUserPost.Text = "Have some thoughts?";
+            listBoxUserFriends.Items.Clear();
+            pictureBoxUserFriend.Image = null;
         }
 
         private void textBoxUserPost_Click(object sender, EventArgs e)
@@ -122,6 +124,36 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
                 MessageBox.Show("You need to login first!");
             }
         }      
+     
+        private void buttonUserFriendsFind_Click(object sender, EventArgs e)
+        {
+            listBoxUserFriends.Items.Clear();
+            listBoxUserFriends.DisplayMember = "Name";
+
+            foreach (User friend in m_LoggedInUser.Friends)
+            {
+                listBoxUserFriends.Items.Add(friend);
+                friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
+            }
+
+            if (m_LoggedInUser.Friends.Count == 0)
+            {
+                MessageBox.Show("You have no friends using that application.");
+            }
+        }
+       
+        private void listBoxUserFriends_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxUserFriends.SelectedItems.Count == 1)
+            {
+                User selectedFriend = listBoxUserFriends.SelectedItem as User;
+
+                if (selectedFriend.PictureNormalURL != null)
+                {
+                    pictureBoxUserFriend.LoadAsync(selectedFriend.PictureNormalURL);
+                }
+            }
+        }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
