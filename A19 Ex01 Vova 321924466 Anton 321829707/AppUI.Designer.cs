@@ -40,14 +40,20 @@
             this.textBoxUserPost = new System.Windows.Forms.TextBox();
             this.groupBoxPostArea = new System.Windows.Forms.GroupBox();
             this.groupBoxUserFriends = new System.Windows.Forms.GroupBox();
+            this.buttonUserFriendFindBy = new System.Windows.Forms.Button();
             this.buttonUserFriendsFind = new System.Windows.Forms.Button();
             this.listBoxUserFriends = new System.Windows.Forms.ListBox();
             this.pictureBoxUserFriend = new System.Windows.Forms.PictureBox();
+            this.buttonGetFriendsLikedPages = new System.Windows.Forms.Button();
+            this.groupBoxFriendsLikedPages = new System.Windows.Forms.GroupBox();
+            this.textBoxLikedPageURL = new System.Windows.Forms.TextBox();
+            this.groupBoxFriendsLikedPagesWithPictures = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
             this.groupBoxUserInfo.SuspendLayout();
             this.groupBoxPostArea.SuspendLayout();
             this.groupBoxUserFriends.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserFriend)).BeginInit();
+            this.groupBoxFriendsLikedPages.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogIn
@@ -55,7 +61,7 @@
             this.buttonLogIn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogIn.BackColor = System.Drawing.Color.Green;
             this.buttonLogIn.ForeColor = System.Drawing.Color.White;
-            this.buttonLogIn.Location = new System.Drawing.Point(750, 516);
+            this.buttonLogIn.Location = new System.Drawing.Point(550, 516);
             this.buttonLogIn.Name = "buttonLogIn";
             this.buttonLogIn.Size = new System.Drawing.Size(58, 33);
             this.buttonLogIn.TabIndex = 0;
@@ -78,7 +84,7 @@
             this.buttonLogOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogOut.BackColor = System.Drawing.Color.Red;
             this.buttonLogOut.ForeColor = System.Drawing.Color.White;
-            this.buttonLogOut.Location = new System.Drawing.Point(814, 516);
+            this.buttonLogOut.Location = new System.Drawing.Point(614, 516);
             this.buttonLogOut.Name = "buttonLogOut";
             this.buttonLogOut.Size = new System.Drawing.Size(58, 33);
             this.buttonLogOut.TabIndex = 2;
@@ -153,6 +159,7 @@
             // 
             // textBoxUserPost
             // 
+            this.textBoxUserPost.BackColor = System.Drawing.Color.Gainsboro;
             this.textBoxUserPost.Location = new System.Drawing.Point(6, 19);
             this.textBoxUserPost.Multiline = true;
             this.textBoxUserPost.Name = "textBoxUserPost";
@@ -176,6 +183,7 @@
             // groupBoxUserFriends
             // 
             this.groupBoxUserFriends.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.groupBoxUserFriends.Controls.Add(this.buttonUserFriendFindBy);
             this.groupBoxUserFriends.Controls.Add(this.buttonUserFriendsFind);
             this.groupBoxUserFriends.Controls.Add(this.listBoxUserFriends);
             this.groupBoxUserFriends.Location = new System.Drawing.Point(257, 12);
@@ -184,6 +192,19 @@
             this.groupBoxUserFriends.TabIndex = 11;
             this.groupBoxUserFriends.TabStop = false;
             this.groupBoxUserFriends.Text = "User Friends";
+            // 
+            // buttonUserFriendFindBy
+            // 
+            this.buttonUserFriendFindBy.BackColor = System.Drawing.Color.SlateBlue;
+            this.buttonUserFriendFindBy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUserFriendFindBy.ForeColor = System.Drawing.Color.White;
+            this.buttonUserFriendFindBy.Location = new System.Drawing.Point(112, 272);
+            this.buttonUserFriendFindBy.Name = "buttonUserFriendFindBy";
+            this.buttonUserFriendFindBy.Size = new System.Drawing.Size(82, 48);
+            this.buttonUserFriendFindBy.TabIndex = 11;
+            this.buttonUserFriendFindBy.Text = "Find friend by...";
+            this.buttonUserFriendFindBy.UseVisualStyleBackColor = false;
+            this.buttonUserFriendFindBy.Click += new System.EventHandler(this.buttonUserFriendFindBy_Click);
             // 
             // buttonUserFriendsFind
             // 
@@ -200,6 +221,7 @@
             // 
             // listBoxUserFriends
             // 
+            this.listBoxUserFriends.BackColor = System.Drawing.Color.Gainsboro;
             this.listBoxUserFriends.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBoxUserFriends.FormattingEnabled = true;
             this.listBoxUserFriends.Location = new System.Drawing.Point(6, 19);
@@ -220,12 +242,56 @@
             this.pictureBoxUserFriend.TabIndex = 7;
             this.pictureBoxUserFriend.TabStop = false;
             // 
+            // buttonGetFriendsLikedPages
+            // 
+            this.buttonGetFriendsLikedPages.BackColor = System.Drawing.Color.SlateBlue;
+            this.buttonGetFriendsLikedPages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGetFriendsLikedPages.ForeColor = System.Drawing.Color.White;
+            this.buttonGetFriendsLikedPages.Location = new System.Drawing.Point(6, 19);
+            this.buttonGetFriendsLikedPages.Name = "buttonGetFriendsLikedPages";
+            this.buttonGetFriendsLikedPages.Size = new System.Drawing.Size(188, 31);
+            this.buttonGetFriendsLikedPages.TabIndex = 10;
+            this.buttonGetFriendsLikedPages.Text = "Get friend\'s random liked pages!";
+            this.buttonGetFriendsLikedPages.UseVisualStyleBackColor = false;
+            this.buttonGetFriendsLikedPages.Click += new System.EventHandler(this.buttonGetFriendsLikedPages_Click);
+            // 
+            // groupBoxFriendsLikedPages
+            // 
+            this.groupBoxFriendsLikedPages.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.groupBoxFriendsLikedPages.Controls.Add(this.textBoxLikedPageURL);
+            this.groupBoxFriendsLikedPages.Controls.Add(this.groupBoxFriendsLikedPagesWithPictures);
+            this.groupBoxFriendsLikedPages.Controls.Add(this.buttonGetFriendsLikedPages);
+            this.groupBoxFriendsLikedPages.Location = new System.Drawing.Point(463, 12);
+            this.groupBoxFriendsLikedPages.Name = "groupBoxFriendsLikedPages";
+            this.groupBoxFriendsLikedPages.Size = new System.Drawing.Size(200, 326);
+            this.groupBoxFriendsLikedPages.TabIndex = 12;
+            this.groupBoxFriendsLikedPages.TabStop = false;
+            this.groupBoxFriendsLikedPages.Text = "Friend\'s Liked Pages";
+            // 
+            // textBoxLikedPageURL
+            // 
+            this.textBoxLikedPageURL.Location = new System.Drawing.Point(6, 300);
+            this.textBoxLikedPageURL.Name = "textBoxLikedPageURL";
+            this.textBoxLikedPageURL.ReadOnly = true;
+            this.textBoxLikedPageURL.Size = new System.Drawing.Size(188, 20);
+            this.textBoxLikedPageURL.TabIndex = 12;
+            // 
+            // groupBoxFriendsLikedPagesWithPictures
+            // 
+            this.groupBoxFriendsLikedPagesWithPictures.Location = new System.Drawing.Point(9, 56);
+            this.groupBoxFriendsLikedPagesWithPictures.Name = "groupBoxFriendsLikedPagesWithPictures";
+            this.groupBoxFriendsLikedPagesWithPictures.Size = new System.Drawing.Size(185, 238);
+            this.groupBoxFriendsLikedPagesWithPictures.TabIndex = 11;
+            this.groupBoxFriendsLikedPagesWithPictures.TabStop = false;
+            this.groupBoxFriendsLikedPagesWithPictures.Text = "Friend\'s Liked Pages with pictures";
+            // 
             // AppUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(684, 561);
+            this.Controls.Add(this.groupBoxFriendsLikedPages);
             this.Controls.Add(this.pictureBoxUserFriend);
             this.Controls.Add(this.groupBoxUserFriends);
             this.Controls.Add(this.groupBoxPostArea);
@@ -242,6 +308,8 @@
             this.groupBoxPostArea.PerformLayout();
             this.groupBoxUserFriends.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserFriend)).EndInit();
+            this.groupBoxFriendsLikedPages.ResumeLayout(false);
+            this.groupBoxFriendsLikedPages.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -263,6 +331,11 @@
         private System.Windows.Forms.ListBox listBoxUserFriends;
         private System.Windows.Forms.Button buttonUserFriendsFind;
         private System.Windows.Forms.PictureBox pictureBoxUserFriend;
+        private System.Windows.Forms.Button buttonGetFriendsLikedPages;
+        private System.Windows.Forms.GroupBox groupBoxFriendsLikedPages;
+        private System.Windows.Forms.Button buttonUserFriendFindBy;
+        private System.Windows.Forms.TextBox textBoxLikedPageURL;
+        private System.Windows.Forms.GroupBox groupBoxFriendsLikedPagesWithPictures;
     }
 }
 

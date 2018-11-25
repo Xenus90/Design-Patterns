@@ -57,10 +57,20 @@
     <Compile Include="AppUI.Designer.cs">
       <DependentUpon>AppUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="FriendsByRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FriendsByRequest.Designer.cs">
+      <DependentUpon>FriendsByRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomFriendLikedPages.cs" />
     <EmbeddedResource Include="AppUI.resx">
       <DependentUpon>AppUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FriendsByRequest.resx">
+      <DependentUpon>FriendsByRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -9,6 +9,8 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
     {
         User m_LoggedInUser;
         AppSettings m_AppSettings;
+        FriendsByRequest m_FriendsByRequest;
+        RandomFriendLikedPages m_RandomFriendLikedPages;
 
         public AppUI()
         {
@@ -17,7 +19,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             FacebookService.s_FbApiVersion = 3.2f;
 
             m_AppSettings = AppSettings.LoadFromFile();
-            StartPosition = FormStartPosition.Manual;
+            this.StartPosition = FormStartPosition.Manual;
             this.Location = m_AppSettings.LastWindowLocation;
             this.Size = m_AppSettings.LastWindowSize;
         }
@@ -31,7 +33,6 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
                 "user_hometown",                      
                 "user_birthday",
                 "user_events",
-                "user_friends",
                 "user_gender",
                 "user_likes",   
                 "user_location",
@@ -76,25 +77,27 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             }
             catch (Exception fetchUserInfoException)
             {
-                MessageBox.Show("We were unable to retrive one or more fields of your info :-(" + System.Environment.NewLine + fetchUserInfoException.Message);
+                MessageBox.Show(@"We were unable to retrive one or more fields of your info ¯\_(ツ)_/¯" + System.Environment.NewLine + fetchUserInfoException.Message);
             }
         }
 
         private void resetUserInfoOnLogout()
         {
             this.Text = this.Name;
-            pictureBoxUser.Image = null;
-            textBoxUserName.Text = "User name";
-            textBoxUserEmail.Text = "Email";
-            textBoxUserHometown.Text = "Hometown";
-            textBoxUserPost.Text = "Have some thoughts?";
-            listBoxUserFriends.Items.Clear();
-            pictureBoxUserFriend.Image = null;
+            this.pictureBoxUser.Image = null;
+            this.textBoxUserName.Text = "User name";
+            this.textBoxUserEmail.Text = "Email";
+            this.textBoxUserHometown.Text = "Hometown";
+            this.textBoxUserPost.Text = "Have some thoughts?";
+            this.listBoxUserFriends.Items.Clear();
+            this.pictureBoxUserFriend.Image = null;
+            this.groupBoxFriendsLikedPagesWithPictures.Controls.Clear();
+            this.textBoxLikedPageURL.Text = string.Empty;
         }
 
         private void textBoxUserPost_Click(object sender, EventArgs e)
         {
-            textBoxUserPost.Text = "";
+            textBoxUserPost.Text = string.Empty;
         }
 
         private void buttonUserDoPost_Click(object sender, EventArgs e)
@@ -127,21 +130,28 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
      
         private void buttonUserFriendsFind_Click(object sender, EventArgs e)
         {
-            listBoxUserFriends.Items.Clear();
-            listBoxUserFriends.DisplayMember = "Name";
-
-            foreach (User friend in m_LoggedInUser.Friends)
+            if (m_LoggedInUser != null)
             {
-                listBoxUserFriends.Items.Add(friend);
-                friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
+                listBoxUserFriends.Items.Clear();
+                listBoxUserFriends.DisplayMember = "Name";
+
+                foreach (User friend in m_LoggedInUser.Friends)
+                {
+                    listBoxUserFriends.Items.Add(friend);
+                    friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
+                }
+
+                if (m_LoggedInUser.Friends.Count == 0)
+                {
+                    MessageBox.Show("You have no friends using that application.");
+                } 
             }
-
-            if (m_LoggedInUser.Friends.Count == 0)
+            else
             {
-                MessageBox.Show("You have no friends using that application.");
+                MessageBox.Show("You need to login first!");
             }
         }
-       
+
         private void listBoxUserFriends_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxUserFriends.SelectedItems.Count == 1)
@@ -152,6 +162,41 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
                 {
                     pictureBoxUserFriend.LoadAsync(selectedFriend.PictureNormalURL);
                 }
+            }
+        }
+
+        private void buttonUserFriendFindBy_Click(object sender, EventArgs e)
+        {
+            if (m_LoggedInUser != null)
+            {
+                if (m_FriendsByRequest == null)
+                {
+                    m_FriendsByRequest = new FriendsByRequest(m_LoggedInUser);
+                }
+
+                m_FriendsByRequest.Location = Cursor.Position;
+                m_FriendsByRequest.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You need to login first!");
+            }
+        }
+
+        private void buttonGetFriendsLikedPages_Click(object sender, EventArgs e)
+        {
+            if (m_LoggedInUser != null)
+            {
+                if (m_RandomFriendLikedPages == null)
+                {
+                    m_RandomFriendLikedPages = new RandomFriendLikedPages(m_LoggedInUser, groupBoxFriendsLikedPagesWithPictures);
+                }
+
+                groupBoxFriendsLikedPagesWithPictures = m_RandomFriendLikedPages.GetPages(); 
+            }
+            else
+            {
+                MessageBox.Show("You need to login first!");
             }
         }
 

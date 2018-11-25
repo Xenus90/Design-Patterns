@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -20,10 +22,18 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             }
             else
             {
-                using (Stream stream = new FileStream(@"C:\FacebookApp\FacebookAppSettings.xml", FileMode.Open))
+                try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
-                    loadedSettings = serializer.Deserialize(stream) as AppSettings;
+                    using (Stream stream = new FileStream(@"C:\FacebookApp\FacebookAppSettings.xml", FileMode.Open))
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
+                        loadedSettings = serializer.Deserialize(stream) as AppSettings;
+                    }
+                }
+                catch (Exception loadFromFileException)
+                {
+                    MessageBox.Show("An error occured during settings loading. Please, restart application and/or delete settings file." + 
+                        System.Environment.NewLine + loadFromFileException.Message);
                 }
             }
             
@@ -34,10 +44,16 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
         {
             AppSettings newSettings = new AppSettings();
 
-            DirectoryInfo dirInfo = Directory.CreateDirectory(@"C:\FacebookApp");
-
-            FileStream newFileStream = File.Create(@"C:\FacebookApp\FacebookAppSettings.xml");
-            newFileStream.Close();
+            try
+            {
+                DirectoryInfo dirInfo = Directory.CreateDirectory(@"C:\FacebookApp");
+                FileStream newFileStream = File.Create(@"C:\FacebookApp\FacebookAppSettings.xml");
+                newFileStream.Close();
+            }
+            catch (Exception newSettingsFileException)
+            {
+                MessageBox.Show("An error occured during creation of a new settings file." + System.Environment.NewLine + newSettingsFileException.Message);
+            }
 
             return newSettings;
         }
@@ -45,15 +61,22 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
         private AppSettings()
         {
             LastWindowLocation = new Point(50, 50);
-            LastWindowSize = new Size(900, 600);
+            LastWindowSize = new Size(700, 600);
         }
 
         public void SaveToFile()
         {
-            using (Stream stream = new FileStream(@"C:\FacebookApp\FacebookAppSettings.xml", FileMode.Truncate))
+            try
             {
-                XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);
+                using (Stream stream = new FileStream(@"C:\FacebookApp\FacebookAppSettings.xml", FileMode.Truncate))
+                {
+                    XmlSerializer serializer = new XmlSerializer(this.GetType());
+                    serializer.Serialize(stream, this);
+                }
+            }
+            catch (Exception saveToFileException)
+            {
+                MessageBox.Show("An error occured during saving application settings." + System.Environment.NewLine + saveToFileException.Message);
             }
         }       
     }
