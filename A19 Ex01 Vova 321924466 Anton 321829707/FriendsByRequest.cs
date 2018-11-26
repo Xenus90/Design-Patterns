@@ -112,7 +112,6 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
                 launchRelationshipStatus();
                 return m_FriendsRelationShipStatus;
             }
-
             else
             {
                 return m_FriendsRelationShipStatus;
