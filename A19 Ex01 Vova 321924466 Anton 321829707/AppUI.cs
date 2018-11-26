@@ -15,13 +15,21 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
         public AppUI()
         {
             InitializeComponent();
-            FacebookService.s_CollectionLimit = 200;
             FacebookService.s_FbApiVersion = 3.2f;
 
             m_AppSettings = AppSettings.LoadFromFile();
             this.StartPosition = FormStartPosition.Manual;
             this.Location = m_AppSettings.LastWindowLocation;
             this.Size = m_AppSettings.LastWindowSize;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            m_AppSettings.LastWindowLocation = this.Location;
+            m_AppSettings.LastWindowSize = this.Size;
+            m_AppSettings.SaveToFile();
         }
 
         private void buttonLogIn_Click(object sender, EventArgs e)
@@ -104,7 +112,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
         {
             if (m_LoggedInUser != null)
             {
-                if (textBoxUserPost.Text != "")
+                if (textBoxUserPost.Text != string.Empty)
                 {
                     try
                     {
@@ -198,15 +206,6 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             {
                 MessageBox.Show("You need to login first!");
             }
-        }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-
-            m_AppSettings.LastWindowLocation = this.Location;
-            m_AppSettings.LastWindowSize = this.Size;
-            m_AppSettings.SaveToFile();
-        }
+        }       
     }
 }

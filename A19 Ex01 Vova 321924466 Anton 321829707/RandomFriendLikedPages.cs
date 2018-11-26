@@ -14,17 +14,17 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
 
         public RandomFriendLikedPages(User io_LoggedInUser, GroupBox io_GroupBoxFriendsLikedPagesWithPictures)
         {
-            m_LoggedInUser = io_LoggedInUser;
-            m_GroupBoxFriendsLikedPagesWithPictures = io_GroupBoxFriendsLikedPagesWithPictures;
+            this.m_LoggedInUser = io_LoggedInUser;
+            this.m_GroupBoxFriendsLikedPagesWithPictures = io_GroupBoxFriendsLikedPagesWithPictures;
         }
 
         public GroupBox GetPages()
         {
-            m_GroupBoxFriendsLikedPagesWithPictures.Controls.Clear();
-            createArrayOfTenPictures();
-            getRandomFriend();
-            getFriendsLikedPagesWithURL();
-
+            this.m_GroupBoxFriendsLikedPagesWithPictures.Controls.Clear();
+            this.createArrayOfTenPictures();
+            this.getRandomFriend();
+            this.getFriendsLikedPagesWithURL();
+            
             return m_GroupBoxFriendsLikedPagesWithPictures;
         }
 
@@ -33,7 +33,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             int colSize = m_GroupBoxFriendsLikedPagesWithPictures.Width / 2;
             int rowSize = m_GroupBoxFriendsLikedPagesWithPictures.Height / 5;
             int picsBoxArrIndex = 0;
-            m_PicsBoxArr = new PictureBox[10];
+            this.m_PicsBoxArr = new PictureBox[10];
 
             for (int i = 0; i < 5; i++)
             {
@@ -55,7 +55,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             if (m_LoggedInUser.Friends.Count != 0)
             {
                 Random randomFriendIndex = new Random();
-                m_RandomFriend = m_LoggedInUser.Friends[randomFriendIndex.Next(m_LoggedInUser.Friends.Count)];
+                this.m_RandomFriend = m_LoggedInUser.Friends[randomFriendIndex.Next(this.m_LoggedInUser.Friends.Count)];
             }
             else
             {
