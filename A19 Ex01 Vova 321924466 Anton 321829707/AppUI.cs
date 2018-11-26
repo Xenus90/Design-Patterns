@@ -7,10 +7,10 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
 {
     public partial class AppUI : Form
     {
-        User m_LoggedInUser;
-        AppSettings m_AppSettings;
-        FriendsByRequest m_FriendsByRequest;
-        RandomFriendLikedPages m_RandomFriendLikedPages;
+        private User m_LoggedInUser;
+        private AppSettings m_AppSettings;
+        private FriendsByRequest m_FriendsByRequest;
+        private RandomFriendLikedPages m_RandomFriendLikedPages;
 
         public AppUI()
         {
