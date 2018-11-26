@@ -63,13 +63,20 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
 
         private void buttonLogOut_Click(object sender, EventArgs e)
         {
-            try
+            if (m_LoggedInUser != null)
             {
-                FacebookService.Logout(resetUserInfoOnLogout);
+                try
+                {
+                    FacebookService.Logout(resetUserInfoOnLogout);
+                }
+                catch (Exception LogOutException)
+                {
+                    MessageBox.Show("Logout error occured!" + System.Environment.NewLine + LogOutException.Message);
+                } 
             }
-            catch (Exception LogOutException)
+            else
             {
-                MessageBox.Show("You need first to login." + System.Environment.NewLine + LogOutException.Message);               
+                MessageBox.Show("You need to login first!");
             }
         }
 
@@ -101,6 +108,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             this.pictureBoxUserFriend.Image = null;
             this.groupBoxFriendsLikedPagesWithPictures.Controls.Clear();
             this.textBoxLikedPageURL.Text = string.Empty;
+            this.m_LoggedInUser = null;
         }
 
         private void textBoxUserPost_Click(object sender, EventArgs e)
