@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
@@ -53,7 +54,8 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             if (!string.IsNullOrEmpty(result.AccessToken))
             {
                 m_LoggedInUser = result.LoggedInUser;
-                fetchUserInfo();
+                //fetchUserInfo();
+                new Thread(fetchUserInfo).Start(); 
             }
             else
             {
@@ -82,18 +84,35 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
 
         private void fetchUserInfo()
         {
-            try
-            {
-                this.Text = string.Format("Welcome {0} {1}!", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
-                pictureBoxUser.LoadAsync(m_LoggedInUser.PictureLargeURL);
-                textBoxUserName.Text = string.Format("{0} {1}", m_LoggedInUser.LastName, m_LoggedInUser.FirstName);
-                textBoxUserEmail.Text = m_LoggedInUser.Email;
-                textBoxUserHometown.Text = m_LoggedInUser.Location.Name;
-            }
-            catch (Exception fetchUserInfoException)
-            {
-                MessageBox.Show(@"We were unable to retrive one or more fields of your info ¯\_(ツ)_/¯" + System.Environment.NewLine + fetchUserInfoException.Message);
-            }
+            //try
+            //{
+            //    this.Text = string.Format("Welcome {0} {1}!", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
+            //    pictureBoxUser.LoadAsync(m_LoggedInUser.PictureLargeURL);
+            //    textBoxUserName.Text = string.Format("{0} {1}", m_LoggedInUser.LastName, m_LoggedInUser.FirstName);
+            //    textBoxUserEmail.Text = m_LoggedInUser.Email;
+            //    textBoxUserHometown.Text = m_LoggedInUser.Location.Name;
+            //}
+            //catch (Exception fetchUserInfoException)
+            //{
+            //    MessageBox.Show(@"We were unable to retrive one or more fields of your info ¯\_(ツ)_/¯" + System.Environment.NewLine + fetchUserInfoException.Message);
+            //}
+
+            groupBoxUserInfo.Invoke(new Action(
+                () =>
+                    {
+                        try
+                        {
+                            this.Text = string.Format("Welcome {0} {1}!", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
+                            pictureBoxUser.LoadAsync(m_LoggedInUser.PictureLargeURL);
+                            textBoxUserName.Text = string.Format("{0} {1}", m_LoggedInUser.LastName, m_LoggedInUser.FirstName);
+                            textBoxUserEmail.Text = m_LoggedInUser.Email;
+                            textBoxUserHometown.Text = m_LoggedInUser.Location.Name;
+                        }
+                        catch (Exception fetchUserInfoException)
+                        {
+                            MessageBox.Show(@"We were unable to retrive one or more fields of your info ¯\_(ツ)_/¯" + System.Environment.NewLine + fetchUserInfoException.Message);
+                        }
+                    }));
         }
 
         private void resetUserInfoOnLogout()
