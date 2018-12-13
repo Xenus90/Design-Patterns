@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
 
-namespace A19_Ex01_Vova_321924466_Anton_321829707
+namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
     public partial class FriendsByRequest : Form
     {

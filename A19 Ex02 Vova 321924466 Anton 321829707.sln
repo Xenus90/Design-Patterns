@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A19 Ex01 Vova 321924466 Anton 321829707", "A19 Ex01 Vova 321924466 Anton 321829707\A19 Ex01 Vova 321924466 Anton 321829707.csproj", "{73F5E254-FEA1-4D2B-9041-9100BBF89547}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AAFD7DDD-C378-427B-94C6-F28AFF4391D8}"
 	ProjectSection(SolutionItems) = preProject
-		A19 Ex01 Report.txt = A19 Ex01 Report.txt
-		A19 Ex01 Vova 321924466 Anton 321829707.docx = A19 Ex01 Vova 321924466 Anton 321829707.docx
+		A19 Ex02 Report.txt = A19 Ex02 Report.txt
+		A19 Ex02 Vova 321924466 Anton 321829707.docx = A19 Ex02 Vova 321924466 Anton 321829707.docx
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A19 Ex02 Vova 321924466 Anton 321829707", "A19 Ex02 Vova 321924466 Anton 321829707\A19 Ex02 Vova 321924466 Anton 321829707.csproj", "{73F5E254-FEA1-4D2B-9041-9100BBF89547}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
