@@ -1,30 +1,51 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
-using System.IO;
 using System.Xml.Serialization;
 
-namespace A19_Ex01_Vova_321924466_Anton_321829707
+namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
-    public class AppSettings
+    public sealed class AppSettings
     {
+        private static readonly object sr_SettingsInstanceLock = new object();
+        private static AppSettings s_Instance;    
+
         private AppSettings()
         {
             this.LastWindowLocation = new Point(50, 50);
             this.LastWindowSize = new Size(700, 600);
         }
 
+        public static AppSettings GetInstance
+        {
+            get
+            {
+                if (s_Instance == null)
+                {
+                    lock (sr_SettingsInstanceLock)
+                    {
+                        if (s_Instance == null)
+                        {
+                            s_Instance = new AppSettings();
+                        }
+                    }
+                }
+                return s_Instance;
+            }
+        }
+
         public Point LastWindowLocation { get; set; }
 
-        public Size LastWindowSize { get; set; }
+        public Size LastWindowSize { get; set; }       
 
-        public static AppSettings LoadFromFile()
+        public void LoadFromFile()
         {
-            AppSettings loadedSettings = null;
+            AppSettings loadedSettings;
 
             if (!File.Exists(@"C:\FacebookApp\FacebookAppSettings.xml"))
             {
-                loadedSettings = CreateNewSettingsFile();
+                CreateNewSettingsFile();
             }
             else
             {
@@ -34,6 +55,8 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
                     {
                         XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
                         loadedSettings = serializer.Deserialize(stream) as AppSettings;
+                        this.LastWindowLocation = loadedSettings.LastWindowLocation;
+                        this.LastWindowSize = loadedSettings.LastWindowSize;
                     }
                 }
                 catch (Exception loadFromFileException)
@@ -42,16 +65,16 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
                         System.Environment.NewLine + loadFromFileException.Message);
                 }
             }
-
-            return loadedSettings;
         }
 
-        public void SaveToFile()
+        public void SaveToFile(Form io_AppUI)
         {
             try
             {
                 using (Stream stream = new FileStream(@"C:\FacebookApp\FacebookAppSettings.xml", FileMode.Truncate))
                 {
+                    this.LastWindowLocation = io_AppUI.Location;
+                    this.LastWindowSize = io_AppUI.Size;
                     XmlSerializer serializer = new XmlSerializer(this.GetType());
                     serializer.Serialize(stream, this);
                 }
@@ -62,10 +85,8 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             }
         }
 
-        private static AppSettings CreateNewSettingsFile()
+        private void CreateNewSettingsFile()
         {
-            AppSettings newSettings = new AppSettings();
-
             try
             {
                 DirectoryInfo dirInfo = Directory.CreateDirectory(@"C:\FacebookApp");
@@ -76,8 +97,6 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             {
                 MessageBox.Show("An error occured during creation of a new settings file." + System.Environment.NewLine + newSettingsFileException.Message);
             }
-
-            return newSettings;
         }           
     }
 }

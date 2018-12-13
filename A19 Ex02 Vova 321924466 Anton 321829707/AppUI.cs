@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
-namespace A19_Ex01_Vova_321924466_Anton_321829707
+namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
     public partial class AppUI : Form
     {
@@ -17,9 +17,11 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
         {
             InitializeComponent();
             FacebookService.s_FbApiVersion = 3.2f;
+            FacebookService.s_CollectionLimit = 100;
 
-            m_AppSettings = AppSettings.LoadFromFile();
             this.StartPosition = FormStartPosition.Manual;
+            m_AppSettings = AppSettings.GetInstance;
+            m_AppSettings.LoadFromFile();      
             this.Location = m_AppSettings.LastWindowLocation;
             this.Size = m_AppSettings.LastWindowSize;
         }
@@ -27,10 +29,7 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-
-            m_AppSettings.LastWindowLocation = this.Location;
-            m_AppSettings.LastWindowSize = this.Size;
-            m_AppSettings.SaveToFile();
+            m_AppSettings.SaveToFile(this);
         }
 
         private void buttonLogIn_Click(object sender, EventArgs e)
@@ -54,7 +53,6 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             if (!string.IsNullOrEmpty(result.AccessToken))
             {
                 m_LoggedInUser = result.LoggedInUser;
-                //fetchUserInfo();
                 new Thread(fetchUserInfo).Start(); 
             }
             else
@@ -84,19 +82,6 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
 
         private void fetchUserInfo()
         {
-            //try
-            //{
-            //    this.Text = string.Format("Welcome {0} {1}!", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
-            //    pictureBoxUser.LoadAsync(m_LoggedInUser.PictureLargeURL);
-            //    textBoxUserName.Text = string.Format("{0} {1}", m_LoggedInUser.LastName, m_LoggedInUser.FirstName);
-            //    textBoxUserEmail.Text = m_LoggedInUser.Email;
-            //    textBoxUserHometown.Text = m_LoggedInUser.Location.Name;
-            //}
-            //catch (Exception fetchUserInfoException)
-            //{
-            //    MessageBox.Show(@"We were unable to retrive one or more fields of your info ¯\_(ツ)_/¯" + System.Environment.NewLine + fetchUserInfoException.Message);
-            //}
-
             groupBoxUserInfo.Invoke(new Action(
                 () =>
                     {
@@ -117,17 +102,23 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
 
         private void resetUserInfoOnLogout()
         {
-            this.Text = this.Name;
-            this.pictureBoxUser.Image = null;
-            this.textBoxUserName.Text = "User name";
-            this.textBoxUserEmail.Text = "Email";
-            this.textBoxUserHometown.Text = "Hometown";
-            this.textBoxUserPost.Text = "Have some thoughts?";
-            this.listBoxUserFriends.Items.Clear();
-            this.pictureBoxUserFriend.Image = null;
-            this.groupBoxFriendsLikedPagesWithPictures.Controls.Clear();
-            this.textBoxLikedPageURL.Text = string.Empty;
-            this.m_LoggedInUser = null;
+            try
+            {               
+                this.Text = this.Name;
+                this.pictureBoxUser.Image = null;
+                this.textBoxUserName.Text = "User name";
+                this.textBoxUserEmail.Text = "Email";
+                this.textBoxUserHometown.Text = "Hometown";
+                this.textBoxUserPost.Text = "Have some thoughts?";
+                userBindingSource.Clear();
+                this.groupBoxFriendsLikedPagesWithPictures.Controls.Clear();
+                this.textBoxLikedPageURL.Text = string.Empty;
+                this.m_LoggedInUser = null;               
+            }
+            catch (Exception clearOnLogoutExpection)
+            {
+                MessageBox.Show("An error occured during logout." + System.Environment.NewLine + clearOnLogoutExpection.Message);
+            }
         }
 
         private void textBoxUserPost_Click(object sender, EventArgs e)
@@ -161,42 +152,23 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             {
                 MessageBox.Show("You need to login first!");
             }
-        }      
-     
+        }
+
         private void buttonUserFriendsFind_Click(object sender, EventArgs e)
         {
             if (m_LoggedInUser != null)
             {
-                listBoxUserFriends.Items.Clear();
-                listBoxUserFriends.DisplayMember = "Name";
-
-                foreach (User friend in m_LoggedInUser.Friends)
-                {
-                    listBoxUserFriends.Items.Add(friend);
-                    friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
-                }
+                listBoxUserFriends.DisplayMember = "FirstName";
+                userBindingSource.DataSource = m_LoggedInUser.Friends;
 
                 if (m_LoggedInUser.Friends.Count == 0)
                 {
                     MessageBox.Show("You have no friends using that application.");
-                } 
+                }
             }
             else
             {
                 MessageBox.Show("You need to login first!");
-            }
-        }
-
-        private void listBoxUserFriends_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxUserFriends.SelectedItems.Count == 1)
-            {
-                User selectedFriend = listBoxUserFriends.SelectedItem as User;
-
-                if (selectedFriend.PictureNormalURL != null)
-                {
-                    pictureBoxUserFriend.LoadAsync(selectedFriend.PictureNormalURL);
-                }
             }
         }
 
@@ -233,6 +205,6 @@ namespace A19_Ex01_Vova_321924466_Anton_321829707
             {
                 MessageBox.Show("You need to login first!");
             }
-        }       
+        }
     }
 }
