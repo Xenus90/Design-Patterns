@@ -84,11 +84,15 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
             }
 
             /* This part is only to show that the pictures grid working well */
-            while (pageIndex < 10)
-            {
-                m_PicsBoxArr[pageIndex].ImageLocation = m_LoggedInUser.PictureNormalURL;
-                pageIndex++;
-            }
+            m_GroupBoxFriendsLikedPagesWithPictures.Invoke(new Action(
+                () =>
+                    {
+                        while (pageIndex < 10)
+                        {
+                            m_PicsBoxArr[pageIndex].ImageLocation = m_LoggedInUser.PictureNormalURL;
+                            pageIndex++;
+                        }
+                    }));
         }
     }
 }
