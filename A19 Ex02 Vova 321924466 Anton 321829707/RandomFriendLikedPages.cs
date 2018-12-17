@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using A19_Ex02_Vova_321924466_Anton_321829707.CacheProxyPattern;
 
 namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
@@ -11,11 +13,13 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
         private User m_RandomFriend;
         private PictureBox[] m_PicsBoxArr;
         private GroupBox m_GroupBoxFriendsLikedPagesWithPictures;
+        private IGetLikedPages m_GetLikedPages;
 
         public RandomFriendLikedPages(User io_LoggedInUser, GroupBox io_GroupBoxFriendsLikedPagesWithPictures)
         {
             this.m_LoggedInUser = io_LoggedInUser;
             this.m_GroupBoxFriendsLikedPagesWithPictures = io_GroupBoxFriendsLikedPagesWithPictures;
+            m_GetLikedPages = new GetLikedPagesCacheProxy();
         }
 
         public GroupBox GetPages()
@@ -23,7 +27,7 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
             this.m_GroupBoxFriendsLikedPagesWithPictures.Controls.Clear();
             this.createArrayOfTenPictures();
             this.getRandomFriend();
-            this.getFriendsLikedPagesWithURL();
+            new Thread(this.getFriendsLikedPagesWithURL).Start();
             
             return m_GroupBoxFriendsLikedPagesWithPictures;
         }
@@ -64,35 +68,26 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
         }
 
         private void getFriendsLikedPagesWithURL()
-        {           
-            int pageIndex = 0;
-
+        {
             try
             {
-                foreach (Page friendLikedPage in m_RandomFriend.LikedPages)
+                string[] pageImageLocation = m_GetLikedPages.GetRandomFriendLikedPages(m_RandomFriend);
+
+                for (int i = 0; i < m_PicsBoxArr.Length && i < pageImageLocation.Length; i++)
                 {
-                    if (pageIndex < 10)
-                    {
-                        m_PicsBoxArr[pageIndex].ImageLocation = friendLikedPage.PictureURL;
-                        pageIndex++;
-                    }
+                    m_PicsBoxArr[i].ImageLocation = pageImageLocation[i];
                 }
             }
             catch (Exception friendLikedPageException)
             {
                 MessageBox.Show(@"We were unable to receive liked pages of your friend. ¯\_(ツ)_/¯" + System.Environment.NewLine + friendLikedPageException.Message);
-            }
 
-            /* This part is only to show that the pictures grid working well */
-            m_GroupBoxFriendsLikedPagesWithPictures.Invoke(new Action(
-                () =>
-                    {
-                        while (pageIndex < 10)
-                        {
-                            m_PicsBoxArr[pageIndex].ImageLocation = m_LoggedInUser.PictureNormalURL;
-                            pageIndex++;
-                        }
-                    }));
+                /* This part is only to show that picture grid working well. */
+                for (int i = 0; i < m_PicsBoxArr.Length; i++)
+                {
+                    m_PicsBoxArr[i].ImageLocation = m_RandomFriend.PictureNormalURL;
+                }
+            }
         }
     }
 }

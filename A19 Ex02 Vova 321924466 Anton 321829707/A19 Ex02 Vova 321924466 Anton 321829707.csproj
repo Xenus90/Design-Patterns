@@ -57,6 +57,9 @@
     <Compile Include="AppUI.Designer.cs">
       <DependentUpon>AppUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="CacheProxyPattern\GetLikedPagesCacheProxy.cs" />
+    <Compile Include="CacheProxyPattern\GetLikedPagesFromFacebook.cs" />
+    <Compile Include="CacheProxyPattern\IGetLikedPages.cs" />
     <Compile Include="FriendsByRequest.cs">
       <SubType>Form</SubType>
     </Compile>
