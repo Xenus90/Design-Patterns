@@ -2,14 +2,15 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
+using A19_Ex02_Vova_321924466_Anton_321829707.FacadePattern;
 
 namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
     public partial class FriendsByRequest : Form
     {
         private User m_LoggedInUser;
-        private Dictionary<string, string> m_FriendsInInputedCity;
-        private Dictionary<string, string> m_FriendsRelationShipStatus;
+        private IInformationGather m_FriendsInACity;
+        private IInformationGather m_SingleFriends;
 
         public FriendsByRequest(User i_LoggedInUser)
         {
@@ -24,62 +25,12 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
             CityTextBox.Text = string.Empty;
         }
 
-        private void findFriendsButton_Click(object sender, EventArgs e)
-        {
-            ListBoxOfFriends.Items.Clear();
-            Dictionary<string, string> friendsWithInputedCity = launchFriendInACityFinder();
-            fillTextBoxWithFriendsByEnteredLocation(friendsWithInputedCity, CityTextBox.Text);
-        }     
-
-        private void friendsCityLocation()
-        {
-            foreach (User friend in m_LoggedInUser.Friends)
-            {
-                if (friend.Location != null)
-                {
-                    m_FriendsInInputedCity.Add(string.Format("{0} {1}", friend.FirstName, friend.LastName), friend.Location.Name);
-                }
-                else if (friend.Location == null)
-                {
-                    m_FriendsInInputedCity.Add(string.Format("{0} {1}", friend.FirstName, friend.LastName), string.Empty);
-                }
-
-            }
-        }
-
-        private void fillTextBoxWithFriendsByEnteredLocation(Dictionary<string, string> i_friendsWithInputedCity, string i_desiredLocation)
-        {
-            Dictionary<string, string> matchedCityByDesiredInput = new Dictionary<string, string>();
-            foreach (KeyValuePair<string, string> friend in m_FriendsInInputedCity)
-            {
-                if (friend.Value.ToLower().Contains(i_desiredLocation.ToLower()))
-                {
-                    matchedCityByDesiredInput.Add(friend.Key, friend.Value);
-                }
-            }
-
-            foreach (KeyValuePair<string, string> friendAndLocation in matchedCityByDesiredInput)
-            {
-                ListBoxOfFriends.Items.Add(friendAndLocation.Key + ", " + friendAndLocation.Value);
-            }
-        }
-
         private void findFriendsFromMyBirthCountry_Click(object sender, EventArgs e)
         {
             ListBoxOfFriends.Items.Clear();
-            Dictionary<string, string> friendsStatus = infoGather();
-            fillTextBoxWithSingleFriends(friendsStatus);
-        }
-
-        private void launchRelationshipStatus()
-        {
-            foreach (User friend in m_LoggedInUser.Friends)
-            {
-                if (friend.RelationshipStatus == User.eRelationshipStatus.Single)
-                {
-                    m_FriendsRelationShipStatus.Add(string.Format("{0} {1}", friend.FirstName, friend.LastName), friend.RelationshipStatus.ToString());
-                }
-            }
+            m_SingleFriends = new SingeFriendsFinder(m_LoggedInUser);
+            Dictionary<string, string> friendsRelationShipStatus = m_SingleFriends.InformationGather();
+            fillTextBoxWithSingleFriends(friendsRelationShipStatus);
         }
 
         private void fillTextBoxWithSingleFriends(Dictionary<string, string> i_friendsStatus)
@@ -90,31 +41,28 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
             }
         }
 
-        private Dictionary<string, string> launchFriendInACityFinder()
+        private void findFriendsButton_Click(object sender, EventArgs e)
         {
-            if (m_FriendsInInputedCity == null)
-            {
-                m_FriendsInInputedCity = new Dictionary<string, string>();
-                friendsCityLocation();
-                return m_FriendsInInputedCity;
-            }
-            else
-            {
-                return m_FriendsInInputedCity;
-            }
+                ListBoxOfFriends.Items.Clear();
+                m_FriendsInACity = new FriendInACityFinder(m_LoggedInUser);
+                Dictionary<string, string> friendsWithInputedCity = m_FriendsInACity.InformationGather();
+                fillTextBoxWithFriendsByEnteredLocation(friendsWithInputedCity, CityTextBox.Text);
         }
 
-        private Dictionary<string, string> infoGather()
+        private void fillTextBoxWithFriendsByEnteredLocation(Dictionary<string, string> i_friendsWithInputedCity, string i_desiredLocation)
         {
-            if (m_FriendsRelationShipStatus == null)
+            Dictionary<string, string> matchedCityByDesiredInput = new Dictionary<string, string>();
+            foreach (KeyValuePair<string, string> friend in i_friendsWithInputedCity)
             {
-                m_FriendsRelationShipStatus = new Dictionary<string, string>();
-                launchRelationshipStatus();
-                return m_FriendsRelationShipStatus;
+                if (friend.Value.ToLower().Contains(i_desiredLocation.ToLower()))
+                {
+                    matchedCityByDesiredInput.Add(friend.Key, friend.Value);
+                }
             }
-            else
+
+            foreach (KeyValuePair<string, string> friendAndLocation in matchedCityByDesiredInput)
             {
-                return m_FriendsRelationShipStatus;
+                ListBoxOfFriends.Items.Add(friendAndLocation.Key + ", " + friendAndLocation.Value);
             }
         }
     }

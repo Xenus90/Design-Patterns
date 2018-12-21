@@ -4,10 +4,11 @@ using System.Threading;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using A19_Ex02_Vova_321924466_Anton_321829707.CacheProxyPattern;
+using A19_Ex02_Vova_321924466_Anton_321829707.FactoryMethodPattern;
 
 namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
-    public class RandomFriendLikedPages
+    public class RandomFriendLikedPages : IFacebookFeature
     {
         private User m_LoggedInUser;
         private User m_RandomFriend;
@@ -21,6 +22,8 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
             this.m_GroupBoxFriendsLikedPagesWithPictures = io_GroupBoxFriendsLikedPagesWithPictures;
             m_GetLikedPages = new GetLikedPagesCacheProxy();
         }
+
+        public User LoggedInUser { get; set; }
 
         public GroupBox GetPages()
         {

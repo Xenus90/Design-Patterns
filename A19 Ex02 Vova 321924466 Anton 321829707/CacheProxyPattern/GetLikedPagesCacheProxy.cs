@@ -22,7 +22,7 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707.CacheProxyPattern
             {
                 for (int i = 0; i < pageImageLocation.Length; i++)
                 {
-                    //pageImageLocation[i] = m_PreviousRandomFriends[io_RandomFriend.Name][i]; // This line can't be executed: we can't get any user liked pages because of Facebook permissions.
+                    //pageImageLocation[i] = m_PreviousRandomFriends[io_RandomFriend.Name][i]; // This line can't be executed: we can't get any user liked pages because of Facebook check code requirement.
                     pageImageLocation[i] = io_RandomFriend.PictureNormalURL;
                 }
             }

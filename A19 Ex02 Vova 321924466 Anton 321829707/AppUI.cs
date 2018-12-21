@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using A19_Ex02_Vova_321924466_Anton_321829707.FactoryMethodPattern;
 
 namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
@@ -10,7 +11,8 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
     {
         private User m_LoggedInUser;
         private AppSettings m_AppSettings;
-        private FriendsByRequest m_FriendsByRequest;
+        private Creator m_FeaturesCreator;
+        private FriendsByRequestWrapper m_FriendsByRequestWrapper;
         private RandomFriendLikedPages m_RandomFriendLikedPages;
 
         public AppUI()
@@ -176,13 +178,14 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
         {
             if (m_LoggedInUser != null)
             {
-                if (m_FriendsByRequest == null)
+                if (m_FriendsByRequestWrapper == null)
                 {
-                    m_FriendsByRequest = new FriendsByRequest(m_LoggedInUser);
+                    m_FeaturesCreator = new CreatorFriendsByRequestWrapper();
+                    m_FriendsByRequestWrapper = m_FeaturesCreator.FactoryMethod(m_LoggedInUser, null) as FriendsByRequestWrapper;
                 }
 
-                m_FriendsByRequest.Location = Cursor.Position;
-                m_FriendsByRequest.ShowDialog();
+                m_FriendsByRequestWrapper.m_FriendsByRequest.Location = Cursor.Position;
+                m_FriendsByRequestWrapper.m_FriendsByRequest.ShowDialog();
             }
             else
             {
@@ -196,7 +199,8 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
             {
                 if (m_RandomFriendLikedPages == null)
                 {
-                    m_RandomFriendLikedPages = new RandomFriendLikedPages(m_LoggedInUser, groupBoxFriendsLikedPagesWithPictures);
+                    m_FeaturesCreator = new CreatorRandomFriendLikedPages();
+                    m_RandomFriendLikedPages = m_FeaturesCreator.FactoryMethod(m_LoggedInUser, this.groupBoxFriendsLikedPagesWithPictures) as RandomFriendLikedPages;
                 }
 
                 groupBoxFriendsLikedPagesWithPictures = m_RandomFriendLikedPages.GetPages(); 

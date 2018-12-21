@@ -8,8 +8,8 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
 {
     public sealed class AppSettings
     {
-        private static readonly object sr_SettingsInstanceLock = new object();
-        private static AppSettings s_Instance;    
+        private static readonly object sr_AppSettingsInstanceLock = new object();
+        private static AppSettings s_AppSettingsInstance;    
 
         private AppSettings()
         {
@@ -21,17 +21,17 @@ namespace A19_Ex02_Vova_321924466_Anton_321829707
         {
             get
             {
-                if (s_Instance == null)
+                if (s_AppSettingsInstance == null)
                 {
-                    lock (sr_SettingsInstanceLock)
+                    lock (sr_AppSettingsInstanceLock)
                     {
-                        if (s_Instance == null)
+                        if (s_AppSettingsInstance == null)
                         {
-                            s_Instance = new AppSettings();
+                            s_AppSettingsInstance = new AppSettings();
                         }
                     }
                 }
-                return s_Instance;
+                return s_AppSettingsInstance;
             }
         }
 
