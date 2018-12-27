@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 
-namespace A19_Ex02_Vova_321924466_Anton_321829707.FactoryMethodPattern
+namespace A19_Ex03_Vova_321924466_Anton_321829707.FactoryMethodPattern
 {
     public class CreatorRandomFriendLikedPages : Creator
     {

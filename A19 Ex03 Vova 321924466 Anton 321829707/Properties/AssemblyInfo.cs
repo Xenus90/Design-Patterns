@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("A19 Ex01 Vova 321924466 Anton 321829707")]
+[assembly: AssemblyTitle("A19 Ex03 Vova 321924466 Anton 321829707")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("A19 Ex01 Vova 321924466 Anton 321829707")]
+[assembly: AssemblyProduct("A19 Ex03 Vova 321924466 Anton 321829707")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

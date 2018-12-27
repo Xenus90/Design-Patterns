@@ -1,8 +1,8 @@
 ==========================Exercise Checking Report==========================
-Exercise No...........: 2
+Exercise No...........: 3
 First Student Details.: 321924466 - Vladimir Greenberg
 Second Student Details: 321829707 - Anton Hanin
-Delivery Date.........: 01 / 01 / 2019
+Delivery Date.........: -- / -- / ----
 Delivered In Delay....: No
 Delay Reason..........: None
 Comments..............: https://github.com/Xenus90/Design-Patterns - In case of any errors/unreceived files.

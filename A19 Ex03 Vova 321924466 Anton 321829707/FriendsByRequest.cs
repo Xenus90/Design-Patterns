@@ -2,9 +2,9 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
-using A19_Ex02_Vova_321924466_Anton_321829707.FacadePattern;
+using A19_Ex03_Vova_321924466_Anton_321829707.FacadePattern;
 
-namespace A19_Ex02_Vova_321924466_Anton_321829707
+namespace A19_Ex03_Vova_321924466_Anton_321829707
 {
     public partial class FriendsByRequest : Form
     {

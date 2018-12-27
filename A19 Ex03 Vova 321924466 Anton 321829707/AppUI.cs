@@ -3,9 +3,9 @@ using System.Threading;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using A19_Ex02_Vova_321924466_Anton_321829707.FactoryMethodPattern;
+using A19_Ex03_Vova_321924466_Anton_321829707.FactoryMethodPattern;
 
-namespace A19_Ex02_Vova_321924466_Anton_321829707
+namespace A19_Ex03_Vova_321924466_Anton_321829707
 {
     public partial class AppUI : Form
     {

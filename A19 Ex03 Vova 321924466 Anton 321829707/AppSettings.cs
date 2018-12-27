@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace A19_Ex02_Vova_321924466_Anton_321829707
+namespace A19_Ex03_Vova_321924466_Anton_321829707
 {
     public sealed class AppSettings
     {
