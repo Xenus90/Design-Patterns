@@ -114,7 +114,6 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
                 this.textBoxUserPost.Text = "Have some thoughts?";
                 userBindingSource.Clear();
                 this.groupBoxFriendsLikedPagesWithPictures.Controls.Clear();
-                this.textBoxLikedPageURL.Text = string.Empty;
                 this.m_LoggedInUser = null;               
             }
             catch (Exception clearOnLogoutExpection)
@@ -207,6 +206,32 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
             }
             else
             {
+                MessageBox.Show("You need to login first!");
+            }
+        }
+
+        private void comboBoxSortAlgorithms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (m_LoggedInUser != null)
+            {               
+               if (m_RandomFriendLikedPages != null)
+               {
+                    try
+                    {
+                        m_RandomFriendLikedPages.sortPicsBoxArrAlgorithm(comboBoxSortAlgorithms.SelectedItem.ToString());
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Please, select one of provided sorts.");
+                    }
+               }
+               else
+               {
+                    MessageBox.Show("You first need to fetch the pages!");
+               }
+            }
+            else
+            {                
                 MessageBox.Show("You need to login first!");
             }
         }

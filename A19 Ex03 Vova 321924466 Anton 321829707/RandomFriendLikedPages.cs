@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using A19_Ex03_Vova_321924466_Anton_321829707.CacheProxyPattern;
 using A19_Ex03_Vova_321924466_Anton_321829707.FactoryMethodPattern;
+using A19_Ex03_Vova_321924466_Anton_321829707.StrategyPattern;
 
 namespace A19_Ex03_Vova_321924466_Anton_321829707
 {
@@ -15,6 +16,7 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
         private PictureBox[] m_PicsBoxArr;
         private GroupBox m_GroupBoxFriendsLikedPagesWithPictures;
         private IGetLikedPages m_GetLikedPages;
+        private ISort m_SortAlgorithm;
 
         public RandomFriendLikedPages(User io_LoggedInUser, GroupBox io_GroupBoxFriendsLikedPagesWithPictures)
         {
@@ -33,6 +35,21 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
             new Thread(this.getFriendsLikedPagesWithURL).Start();
             
             return m_GroupBoxFriendsLikedPagesWithPictures;
+        }
+
+        public void sortPicsBoxArrAlgorithm(string i_sortAlgoritm)
+        {
+            switch (i_sortAlgoritm)
+            {
+                case "Ascending (likes amount)":
+                    m_SortAlgorithm = new AscendingLikesSort();
+                    break;
+                case "Descending (likes amount)":
+                    m_SortAlgorithm = new DescendingLikesSort();
+                    break;
+            }
+            
+            m_PicsBoxArr = m_SortAlgorithm.sortAlgorithm(m_PicsBoxArr);
         }
 
         private void createArrayOfTenPictures()

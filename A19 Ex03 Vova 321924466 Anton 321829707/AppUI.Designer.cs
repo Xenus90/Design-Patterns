@@ -51,7 +51,8 @@
             this.listBoxUserFriends = new System.Windows.Forms.ListBox();
             this.buttonGetFriendsLikedPages = new System.Windows.Forms.Button();
             this.groupBoxFriendsLikedPages = new System.Windows.Forms.GroupBox();
-            this.textBoxLikedPageURL = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxSortAlgorithms = new System.Windows.Forms.ComboBox();
             this.groupBoxFriendsLikedPagesWithPictures = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
             this.groupBoxUserInfo.SuspendLayout();
@@ -322,7 +323,8 @@
             // groupBoxFriendsLikedPages
             // 
             this.groupBoxFriendsLikedPages.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.groupBoxFriendsLikedPages.Controls.Add(this.textBoxLikedPageURL);
+            this.groupBoxFriendsLikedPages.Controls.Add(this.label1);
+            this.groupBoxFriendsLikedPages.Controls.Add(this.comboBoxSortAlgorithms);
             this.groupBoxFriendsLikedPages.Controls.Add(this.groupBoxFriendsLikedPagesWithPictures);
             this.groupBoxFriendsLikedPages.Controls.Add(this.buttonGetFriendsLikedPages);
             this.groupBoxFriendsLikedPages.Location = new System.Drawing.Point(694, 18);
@@ -334,14 +336,26 @@
             this.groupBoxFriendsLikedPages.TabStop = false;
             this.groupBoxFriendsLikedPages.Text = "Friend\'s Liked Pages";
             // 
-            // textBoxLikedPageURL
+            // label1
             // 
-            this.textBoxLikedPageURL.Location = new System.Drawing.Point(9, 462);
-            this.textBoxLikedPageURL.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBoxLikedPageURL.Name = "textBoxLikedPageURL";
-            this.textBoxLikedPageURL.ReadOnly = true;
-            this.textBoxLikedPageURL.Size = new System.Drawing.Size(280, 26);
-            this.textBoxLikedPageURL.TabIndex = 12;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 463);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 20);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Sort:";
+            // 
+            // comboBoxSortAlgorithms
+            // 
+            this.comboBoxSortAlgorithms.FormattingEnabled = true;
+            this.comboBoxSortAlgorithms.Items.AddRange(new object[] {
+            "Ascending (likes amount)",
+            "Descending (likes amount)"});
+            this.comboBoxSortAlgorithms.Location = new System.Drawing.Point(59, 460);
+            this.comboBoxSortAlgorithms.Name = "comboBoxSortAlgorithms";
+            this.comboBoxSortAlgorithms.Size = new System.Drawing.Size(234, 28);
+            this.comboBoxSortAlgorithms.TabIndex = 13;
+            this.comboBoxSortAlgorithms.SelectedIndexChanged += new System.EventHandler(this.comboBoxSortAlgorithms_SelectedIndexChanged);
             // 
             // groupBoxFriendsLikedPagesWithPictures
             // 
@@ -404,13 +418,14 @@
         private System.Windows.Forms.Button buttonGetFriendsLikedPages;
         private System.Windows.Forms.GroupBox groupBoxFriendsLikedPages;
         private System.Windows.Forms.Button buttonUserFriendFindBy;
-        private System.Windows.Forms.TextBox textBoxLikedPageURL;
         private System.Windows.Forms.GroupBox groupBoxFriendsLikedPagesWithPictures;
         private System.Windows.Forms.BindingSource userBindingSource;
         private System.Windows.Forms.TextBox textBoxFriendsHometown;
         private System.Windows.Forms.TextBox textBoxFriendsEmail;
         private System.Windows.Forms.TextBox textBoxFriendsFullName;
         private System.Windows.Forms.PictureBox imageNormalPictureBox;
+        private System.Windows.Forms.ComboBox comboBoxSortAlgorithms;
+        private System.Windows.Forms.Label label1;
     }
 }
 

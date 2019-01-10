@@ -77,6 +77,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomFriendLikedPages.cs" />
+    <Compile Include="StrategyPattern\AscendingLikesSort.cs" />
+    <Compile Include="StrategyPattern\DescendingLikesSort.cs" />
+    <Compile Include="StrategyPattern\ISort.cs" />
     <EmbeddedResource Include="AppUI.resx">
       <DependentUpon>AppUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -104,6 +107,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
