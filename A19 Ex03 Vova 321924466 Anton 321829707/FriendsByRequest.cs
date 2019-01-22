@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
 using A19_Ex03_Vova_321924466_Anton_321829707.FacadePattern;
+using A19_Ex03_Vova_321924466_Anton_321829707.ObserverPattern;
 
 namespace A19_Ex03_Vova_321924466_Anton_321829707
 {
-    public partial class FriendsByRequest : Form
+    public partial class FriendsByRequest : Form, IThemeObserver
     {
         private User m_LoggedInUser;
         private IInformationGather m_FriendsInACity;
@@ -18,6 +20,70 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
             InitializeComponent();
             this.StartPosition = FormStartPosition.Manual;
             this.Text = "Friends Location";
+        }
+
+        public void UpdateTheme(string i_ThemeName)
+        {
+            if (i_ThemeName == "Light")
+            {
+                this.BackColor = Color.Lavender;
+
+                foreach (Control singleControl in this.Controls)
+                {
+                    if (singleControl.GetType() == typeof(Button))
+                    {
+                        singleControl.BackColor = Color.LightSkyBlue;
+                    }
+                    else if (singleControl.GetType() == typeof(ListBox))
+                    {
+                        singleControl.BackColor = Color.WhiteSmoke;
+                    }
+                    else if (singleControl.GetType() == typeof(TextBox))
+                    {
+                        singleControl.BackColor = Color.FromName("ControlLightLight");
+                    }
+                }
+            }
+            else if (i_ThemeName == "Dark")
+            {
+                this.BackColor = Color.LightSlateGray;
+
+                foreach (Control singleControl in this.Controls)
+                {
+                    if (singleControl.GetType() == typeof(Button))
+                    {
+                        singleControl.BackColor = Color.MidnightBlue;
+                    }
+                    else if (singleControl.GetType() == typeof(ListBox))
+                    {
+                        singleControl.BackColor = Color.DimGray;
+                    }
+                    else if (singleControl.GetType() == typeof(TextBox))
+                    {
+                        singleControl.BackColor = Color.FromName("WindowFrame");
+                    }
+                }
+            }
+            else if (i_ThemeName == "Default")
+            {
+                this.BackColor = Color.LightSteelBlue;
+
+                foreach (Control singleControl in this.Controls)
+                {
+                    if (singleControl.GetType() == typeof(Button))
+                    {
+                        singleControl.BackColor = Color.RoyalBlue;
+                    }
+                    else if (singleControl.GetType() == typeof(ListBox))
+                    {
+                        singleControl.BackColor = Color.Gainsboro;
+                    }
+                    else if (singleControl.GetType() == typeof(TextBox))
+                    {
+                        singleControl.BackColor = Color.FromName("Window");
+                    }
+                }
+            }
         }
 
         private void CityTextBox_Click(object sender, EventArgs e)
@@ -64,6 +130,6 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
             {
                 ListBoxOfFriends.Items.Add(friendAndLocation.Key + ", " + friendAndLocation.Value);
             }
-        }
+        }  
     }
 }

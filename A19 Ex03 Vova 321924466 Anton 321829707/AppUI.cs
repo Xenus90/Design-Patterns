@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using A19_Ex03_Vova_321924466_Anton_321829707.FactoryMethodPattern;
+using A19_Ex03_Vova_321924466_Anton_321829707.ObserverPattern;
 
 namespace A19_Ex03_Vova_321924466_Anton_321829707
 {
-    public partial class AppUI : Form
+    public partial class AppUI : Form, IThemeObserver
     {
         private User m_LoggedInUser;
         private AppSettings m_AppSettings;
         private Creator m_FeaturesCreator;
         private FriendsByRequestWrapper m_FriendsByRequestWrapper;
         private RandomFriendLikedPages m_RandomFriendLikedPages;
+        private ThemeDelegateWrapper m_ThemeDelegate;
 
         public AppUI()
         {
@@ -26,6 +29,33 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
             m_AppSettings.LoadFromFile();      
             this.Location = m_AppSettings.LastWindowLocation;
             this.Size = m_AppSettings.LastWindowSize;
+
+            m_ThemeDelegate = new ThemeDelegateWrapper();
+            m_ThemeDelegate.AddObserver(this.UpdateTheme);
+        }
+
+        public void UpdateTheme(string i_ThemeName)
+        {
+            if (i_ThemeName == "Light")
+            {
+                this.BackColor = Color.Lavender;
+            }
+            else if (i_ThemeName == "Dark")
+            {
+                this.BackColor = Color.LightSlateGray;
+            }
+            else if (i_ThemeName == "Default")
+            {
+                this.BackColor = Color.LightSteelBlue;
+            }
+
+            foreach(Control singleControl in this.Controls)
+            {
+                if (singleControl.GetType() == typeof(GroupBox))
+                {
+                    updateThemeInEveryGroupBox(i_ThemeName, (GroupBox)singleControl);
+                }
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -181,6 +211,7 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
                 {
                     m_FeaturesCreator = new CreatorFriendsByRequestWrapper();
                     m_FriendsByRequestWrapper = m_FeaturesCreator.FactoryMethod(m_LoggedInUser, null) as FriendsByRequestWrapper;
+                    m_ThemeDelegate.AddObserver(m_FriendsByRequestWrapper.m_FriendsByRequest.UpdateTheme);
                 }
 
                 m_FriendsByRequestWrapper.m_FriendsByRequest.Location = Cursor.Position;
@@ -233,6 +264,112 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
             else
             {                
                 MessageBox.Show("You need to login first!");
+            }
+        }
+
+        private void comboBoxThemeColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (m_LoggedInUser != null)
+            {
+                if (m_FriendsByRequestWrapper != null)
+                {
+                    switch (comboBoxThemeColor.SelectedItem.ToString())
+                    {
+                        case "Light":
+                            m_ThemeDelegate.NotifyAllObservers("Light");
+                            break;
+                        case "Dark":
+                            m_ThemeDelegate.NotifyAllObservers("Dark");
+                            break;
+                        case "Default":
+                            m_ThemeDelegate.NotifyAllObservers("Default");
+                            break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please, open 'Friends By Request' first!" + System.Environment.NewLine + "We need to create an instance in order to change both windows.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You need to login first!");
+            }
+        }
+
+        private void updateThemeInEveryGroupBox(string i_ThemeName, GroupBox i_GroupBox)
+        {
+            if (i_ThemeName == "Light")
+            {
+                i_GroupBox.BackColor = Color.SteelBlue;
+
+                foreach (Control singleControl in i_GroupBox.Controls)
+                {
+                    if (singleControl.GetType() == typeof(Button))
+                    {
+                        singleControl.BackColor = Color.LightSkyBlue;
+                    }
+                    else if (singleControl.GetType() == typeof(ListBox))
+                    {
+                        singleControl.BackColor = Color.WhiteSmoke;
+                    }
+                    else if (singleControl.GetType() == typeof(TextBox))
+                    {
+                        singleControl.BackColor = Color.FromName("ControlLightLight");
+                    }
+                    else if (singleControl.GetType() == typeof(ComboBox))
+                    {
+                        singleControl.BackColor = Color.FromName("HighlightText");
+                    }
+                }
+            }
+            else if (i_ThemeName == "Dark")
+            {
+                i_GroupBox.BackColor = Color.DarkBlue;
+
+                foreach (Control singleControl in i_GroupBox.Controls)
+                {
+                    if (singleControl.GetType() == typeof(Button))
+                    {
+                        singleControl.BackColor = Color.MidnightBlue;
+                    }
+                    else if (singleControl.GetType() == typeof(ListBox))
+                    {
+                        singleControl.BackColor = Color.DimGray;
+                    }
+                    else if (singleControl.GetType() == typeof(TextBox))
+                    {
+                        singleControl.BackColor = Color.FromName("WindowFrame");
+                    }
+                    else if (singleControl.GetType() == typeof(ComboBox))
+                    {
+                        singleControl.BackColor = Color.FromName("ScrollBar");
+                    }
+                }
+            }
+            else if (i_ThemeName == "Default")
+            {               
+                i_GroupBox.BackColor = Color.CornflowerBlue;
+
+                foreach (Control singleControl in i_GroupBox.Controls)
+                {
+                    if (singleControl.GetType() == typeof(Button))
+                    {
+                        singleControl.BackColor = Color.RoyalBlue;
+                    }
+                    else if (singleControl.GetType() == typeof(ListBox))
+                    {
+                        singleControl.BackColor = Color.Gainsboro;
+                    }
+                    else if (singleControl.GetType() == typeof(TextBox))
+                    {
+                        singleControl.BackColor = Color.FromName("Control");
+                    }
+                    else if (singleControl.GetType() == typeof(ComboBox))
+                    {
+                        singleControl.BackColor = Color.FromName("Window");
+                    }
+                }
             }
         }
     }

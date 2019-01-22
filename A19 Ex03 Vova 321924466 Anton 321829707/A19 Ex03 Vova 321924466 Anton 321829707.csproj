@@ -74,6 +74,8 @@
       <DependentUpon>FriendsByRequest.cs</DependentUpon>
     </Compile>
     <Compile Include="FriendsByRequestWrapper.cs" />
+    <Compile Include="ObserverPattern\IThemeObserver.cs" />
+    <Compile Include="ObserverPattern\ThemeDelegateWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomFriendLikedPages.cs" />

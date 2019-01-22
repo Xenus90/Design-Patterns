@@ -54,6 +54,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxSortAlgorithms = new System.Windows.Forms.ComboBox();
             this.groupBoxFriendsLikedPagesWithPictures = new System.Windows.Forms.GroupBox();
+            this.comboBoxThemeColor = new System.Windows.Forms.ComboBox();
+            this.groupBoxThemeColor = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUser)).BeginInit();
             this.groupBoxUserInfo.SuspendLayout();
             this.groupBoxPostArea.SuspendLayout();
@@ -61,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).BeginInit();
             this.groupBoxFriendsLikedPages.SuspendLayout();
+            this.groupBoxThemeColor.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogIn
@@ -368,12 +372,47 @@
             this.groupBoxFriendsLikedPagesWithPictures.TabStop = false;
             this.groupBoxFriendsLikedPagesWithPictures.Text = "Friend\'s Liked Pages with pictures";
             // 
+            // comboBoxThemeColor
+            // 
+            this.comboBoxThemeColor.FormattingEnabled = true;
+            this.comboBoxThemeColor.Items.AddRange(new object[] {
+            "Light",
+            "Dark",
+            "Default"});
+            this.comboBoxThemeColor.Location = new System.Drawing.Point(62, 25);
+            this.comboBoxThemeColor.Name = "comboBoxThemeColor";
+            this.comboBoxThemeColor.Size = new System.Drawing.Size(230, 28);
+            this.comboBoxThemeColor.TabIndex = 13;
+            this.comboBoxThemeColor.SelectedIndexChanged += new System.EventHandler(this.comboBoxThemeColor_SelectedIndexChanged);
+            // 
+            // groupBoxThemeColor
+            // 
+            this.groupBoxThemeColor.BackColor = System.Drawing.Color.DodgerBlue;
+            this.groupBoxThemeColor.Controls.Add(this.label2);
+            this.groupBoxThemeColor.Controls.Add(this.comboBoxThemeColor);
+            this.groupBoxThemeColor.Location = new System.Drawing.Point(386, 780);
+            this.groupBoxThemeColor.Name = "groupBoxThemeColor";
+            this.groupBoxThemeColor.Size = new System.Drawing.Size(300, 62);
+            this.groupBoxThemeColor.TabIndex = 14;
+            this.groupBoxThemeColor.TabStop = false;
+            this.groupBoxThemeColor.Text = "Theme Color";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 20);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Color:";
+            // 
             // AppUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(1014, 863);
+            this.Controls.Add(this.groupBoxThemeColor);
             this.Controls.Add(this.groupBoxFriendsLikedPages);
             this.Controls.Add(this.groupBoxUserFriends);
             this.Controls.Add(this.groupBoxPostArea);
@@ -395,6 +434,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).EndInit();
             this.groupBoxFriendsLikedPages.ResumeLayout(false);
             this.groupBoxFriendsLikedPages.PerformLayout();
+            this.groupBoxThemeColor.ResumeLayout(false);
+            this.groupBoxThemeColor.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -426,6 +467,9 @@
         private System.Windows.Forms.PictureBox imageNormalPictureBox;
         private System.Windows.Forms.ComboBox comboBoxSortAlgorithms;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxThemeColor;
+        private System.Windows.Forms.GroupBox groupBoxThemeColor;
+        private System.Windows.Forms.Label label2;
     }
 }
 
