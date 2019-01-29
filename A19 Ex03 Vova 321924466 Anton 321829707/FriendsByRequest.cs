@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
 using A19_Ex03_Vova_321924466_Anton_321829707.FacadePattern;
 using A19_Ex03_Vova_321924466_Anton_321829707.ObserverPattern;
+using A19_Ex03_Vova_321924466_Anton_321829707.TemplateMethodPattern;
 
 namespace A19_Ex03_Vova_321924466_Anton_321829707
 {
@@ -13,6 +14,7 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
         private User m_LoggedInUser;
         private IInformationGather m_FriendsInACity;
         private IInformationGather m_SingleFriends;
+        private TemplateMethodSkeleton m_TemplateSkeleton;
 
         public FriendsByRequest(User i_LoggedInUser)
         {
@@ -103,7 +105,7 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
         {
             foreach (KeyValuePair<string, string> friendAndRltStatus in i_friendsStatus)
             {
-                ListBoxOfFriends.Items.Add(friendAndRltStatus.Key + ", " + friendAndRltStatus.Value);
+                ListBoxOfFriends.Items.Add(friendAndRltStatus.Key + friendAndRltStatus.Value);
             }
         }
 
@@ -118,6 +120,7 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
         private void fillTextBoxWithFriendsByEnteredLocation(Dictionary<string, string> i_friendsWithInputedCity, string i_desiredLocation)
         {
             Dictionary<string, string> matchedCityByDesiredInput = new Dictionary<string, string>();
+
             foreach (KeyValuePair<string, string> friend in i_friendsWithInputedCity)
             {
                 if (friend.Value.ToLower().Contains(i_desiredLocation.ToLower()))
@@ -128,8 +131,26 @@ namespace A19_Ex03_Vova_321924466_Anton_321829707
 
             foreach (KeyValuePair<string, string> friendAndLocation in matchedCityByDesiredInput)
             {
-                ListBoxOfFriends.Items.Add(friendAndLocation.Key + ", " + friendAndLocation.Value);
+                ListBoxOfFriends.Items.Add(friendAndLocation.Key + friendAndLocation.Value);
             }
-        }  
+        }
+
+        private void friendsReligion_Click(object sender, EventArgs e)
+        {
+            ListBoxOfFriends.Items.Clear();
+            m_TemplateSkeleton = new FriendsReligion(m_LoggedInUser);
+            Dictionary<string, string> tempDictionary = new Dictionary<string, string>();
+            Dictionary<string, string> friendsReligion = new Dictionary<string, string>();
+            friendsReligion = m_TemplateSkeleton.TemplateMethod(tempDictionary);
+            fillTextBoxWithFriendsReligion(friendsReligion);
+        }
+
+        private void fillTextBoxWithFriendsReligion(Dictionary<string, string> i_friendsReligion)
+        {
+            foreach (KeyValuePair<string, string> friendsReligion in i_friendsReligion)
+            {
+                ListBoxOfFriends.Items.Add(friendsReligion.Key + friendsReligion.Value);
+            }
+        }
     }
 }

@@ -82,6 +82,8 @@
     <Compile Include="StrategyPattern\AscendingLikesSort.cs" />
     <Compile Include="StrategyPattern\DescendingLikesSort.cs" />
     <Compile Include="StrategyPattern\ISort.cs" />
+    <Compile Include="TemplateMethodPattern\FriendsReligion.cs" />
+    <Compile Include="TemplateMethodPattern\TemplateMethodSkeleton.cs" />
     <EmbeddedResource Include="AppUI.resx">
       <DependentUpon>AppUI.cs</DependentUpon>
     </EmbeddedResource>
